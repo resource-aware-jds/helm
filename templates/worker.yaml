@@ -21,8 +21,8 @@ spec:
             - /app/worker
           envFrom:
             - configMapRef:
-              name: rajds-config
-              optional: false
+                name: rajds-config
+                optional: false
           image: {{ $.Values.image }}
           imagePullPolicy: Always
           securityContext:
