@@ -22,7 +22,7 @@ spec:
             - name: {{ $k }}
               value: "{{ $v }}"
           {{- end }}
-          command:
+          args:
             - /app/worker
           image: {{ $.Values.image }}
           imagePullPolicy: Always
