@@ -44,9 +44,9 @@ spec:
             - mountPath: /app/.rajds/
               name: rajds-volume
               subPath: worker-{{ $i }}/
-            - mountPath: /app/.rajds/ca/
+            - mountPath: /app/.rajds/ca/cert.pem
               name: rajds-volume
-              subPath: control-plane/ca/
+              subPath: control-plane/ca/cert.pem
               readOnly: true
       volumes:
         - name: rajds-config
