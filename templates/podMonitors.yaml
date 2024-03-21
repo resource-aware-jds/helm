@@ -1,0 +1,35 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: cp-prometheus-exporter
+  namespace: {{ .Release.Namespace }}
+spec:
+  jobLabel: cp-prometheus-exporter
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  podMetricsEndpoints:
+    - interval: {{ .Values.prometheus.interval }}
+      path: /metrics
+      port: http
+  selector:
+    matchLabels:
+      prom: rajds-cp
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: worker-prometheus-exporter
+  namespace: {{ .Release.Namespace }}
+spec:
+  jobLabel: worker-prometheus-exporter
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  podMetricsEndpoints:
+    - interval: {{ .Values.prometheus.interval }}
+      path: /metrics
+      port: http
+  selector:
+    matchLabels:
+      prom: rajds-worker

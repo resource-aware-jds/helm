@@ -11,6 +11,9 @@ storage:
   accessModes:
     - ReadWriteMany
 
+prometheus:
+  interval: 10m
+
 config:
   RAJDS_CONTROL_PLANE_CA_CERTIFICATE_PATH: /app/.rajds/ca/cert.pem
   RAJDS_CONTROL_PLANE_CA_PRIVATE_KEY_PATH: /app/.rajds/ca/key.pem
