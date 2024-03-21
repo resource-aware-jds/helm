@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rajds-control-plane
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: rajds-control-plane
+  template:
+    metadata:
+      labels:
+        app: rajds-control-plane
+        prom: rajds-cp
+      namespace: {{ .Release.Namespace }}
+    spec:
+      containers:
+        - name: cp
+          command:
+            - /app/cp
+          envFrom:
+            - configMapRef:
+                name: rajds-config
+                optional: false
+          image: {{ .Values.image }}
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          ports:
+            - name: http
+              containerPort: 31313
+              protocol: TCP
+            - name: grpc
+              containerPort: 31314
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /app/.rajds/
+              name: rajds-volume
+              subPath: control-plane/
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: rajds-config
+          name: rajds-config
+        - name: rajds-volume
+          persistentVolumeClaim:
+            claimName: rajds-storage
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate

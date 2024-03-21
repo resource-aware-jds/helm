@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rajds-storage
+  namespace: {{ .Release.Namespace }}
+spec:
+  resources:
+    requests:
+      storage: {{ .Values.storage.size }}
+  storageClassName: {{ .Values.storage.storageClassName }}
+  accessModes: {{ .Values.storage.accessModes }}
