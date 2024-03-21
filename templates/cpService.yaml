@@ -9,8 +9,8 @@ spec:
     app: rajds-control-plane
   ports:
   - name: grpc
-    port: 31314
-    targetPort: 31314
+    port: 31234
+    targetPort: 31234
   - name: http
     port: 31313
     targetPort: 31313
