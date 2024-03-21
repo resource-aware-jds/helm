@@ -18,10 +18,10 @@ spec:
       containers:
         - name: worker
           env:
-            {{- range $k, $v := $.Values.config }}
-              - name:{{ $k }}
-                value: "{{ $v }}"
-            {{- end }}
+          {{- range $k, $v := $.Values.config }}
+            - name: {{ $k }}
+              value: "{{ $v }}"
+          {{- end }}
           command:
             - /app/worker
           image: {{ $.Values.image }}
