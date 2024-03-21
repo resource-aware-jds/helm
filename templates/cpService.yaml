@@ -11,3 +11,6 @@ spec:
   - name: grpc
     port: 31314
     targetPort: 31314
+  - name: http
+    port: 31313
+    targetPort: 31313
