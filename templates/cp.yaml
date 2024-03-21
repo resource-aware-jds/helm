@@ -16,12 +16,13 @@ spec:
     spec:
       containers:
         - name: cp
+          env:
+          {{- range $k, $v := $.Values.config }}
+            - name: {{ $k }}
+              value: "{{ $v }}"
+          {{- end }}
           command:
             - /app/cp
-          envFrom:
-            - configMapRef:
-                name: rajds-config
-                optional: false
           image: {{ .Values.image }}
           imagePullPolicy: Always
           securityContext:
@@ -41,10 +42,6 @@ spec:
               name: rajds-volume
               subPath: control-plane/
       volumes:
-        - configMap:
-            defaultMode: 420
-            name: rajds-config
-          name: rajds-config
         - name: rajds-volume
           persistentVolumeClaim:
             claimName: rajds-storage
