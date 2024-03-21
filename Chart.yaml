@@ -1,6 +1,6 @@
 apiVersion: v2
-name: helm
-description: A Helm chart for Kubernetes
+name: rajds-helm
+description: The rajds helm for deploying on the kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
 #
