@@ -64,4 +64,5 @@ spec:
       maxSurge: 25%
       maxUnavailable: 25%
     type: RollingUpdate
+---    
 {{end}}
