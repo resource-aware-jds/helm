@@ -49,9 +49,9 @@ spec:
               subPath: control-plane/ca/
               readOnly: true
       volumes:
-        - configMap:
+        - name: rajds-config
+          configMap:
             defaultMode: 420
-            name: rajds-config
             name: rajds-config
         - name: rajds-volume
           persistentVolumeClaim:
