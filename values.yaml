@@ -12,6 +12,7 @@ storage:
     - ReadWriteMany
 
 prometheus:
+  enabled: true
   interval: 10m
 
 config:
