@@ -13,17 +13,20 @@ spec:
         app: rajds-control-plane-fe
     spec:
       containers:
-      - name: rajds-control-plane-fe
-        env:
-        {{- range $k, $v := $.Values.frontendConfig }}
-          - name: {{ $k }}
-            value: "{{ $v }}"
-        {{- end }}
-        image: {{ .Values.controlPlanFrontendImage }}
-        ports:
-          - name: http
-            containerPort: 80
-            protocol: TCP
+        - name: rajds-control-plane-fe
+          image: {{ .Values.controlPlanFrontendImage }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: rajds-control-plane-fe-configmap
+              mountPath: /usr/share/nginx/.env
+      volumes:
+        - _type: configMap
+          configMap:
+            name: rajds-control-plane-fe-configmap
+          name: rajds-control-plane-fe-configmap
 ---
 apiVersion: v1
 kind: Service
@@ -38,3 +41,13 @@ spec:
   - name: http
     port: 80
     targetPort: 80
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rajds-control-plane-fe-configmap
+  namespace: {{ .Release.Namespace }}
+data:
+{{- range $k, $v := $.Values.frontendConfig }}
+  {{ $k }}: "{{ $v }}"
+{{- end }}
