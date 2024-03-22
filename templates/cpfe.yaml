@@ -14,6 +14,11 @@ spec:
     spec:
       containers:
       - name: rajds-control-plane-fe
+        env:
+        {{- range $k, $v := $.Values.frontendConfig }}
+          - name: {{ $k }}
+            value: "{{ $v }}"
+        {{- end }}
         image: {{ .Values.controlPlanFrontendImage }}
         ports:
           - name: http
