@@ -4,6 +4,7 @@
 
 workerNodeCount: 3
 image: ghcr.io/resource-aware-jds/resource-aware-jds:latest
+controlPlanFrontendImage: ghcr.io/resource-aware-jds/resource-aware-jds-fe:latest
 
 storage:
   storageClassName:
