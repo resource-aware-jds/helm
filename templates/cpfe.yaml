@@ -22,6 +22,7 @@ spec:
           volumeMounts:
             - name: rajds-control-plane-fe-configmap
               mountPath: /usr/share/nginx/.env
+              subPath: .env
       volumes:
         - _type: configMap
           configMap:
@@ -48,6 +49,7 @@ metadata:
   name: rajds-control-plane-fe-configmap
   namespace: {{ .Release.Namespace }}
 data:
-{{- range $k, $v := $.Values.frontendConfig }}
-  {{ $k }}: "{{ $v }}"
-{{- end }}
+  .env: |
+  {{- range $k, $v := $.Values.frontendConfig }}
+    {{ $k }}={{ $v }}
+  {{- end }}
