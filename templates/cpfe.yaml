@@ -25,8 +25,7 @@ spec:
               mountPath: /usr/share/nginx/.env
               subPath: .env
       volumes:
-        - _type: configMap
-          configMap:
+        - configMap:
             name: rajds-control-plane-fe-configmap
           name: rajds-control-plane-fe-configmap
 ---
