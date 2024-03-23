@@ -52,5 +52,5 @@ metadata:
 data:
   .env: |
   {{- range $k, $v := $.Values.frontendConfig }}
-    {{ $k }}="{{ $v }}"
+    {{ $k }}={{ $v }}
   {{- end }}
